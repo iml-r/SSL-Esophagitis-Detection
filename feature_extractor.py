@@ -19,6 +19,7 @@ class EsophagitisFeatureExtractor(torch.nn.Module):
                  use_strict_weight_loading = True,
                  use_native_transform = True,
                  *args, **kwargs):
+
         super().__init__()
 
         self.vision_model_size = size
@@ -65,7 +66,7 @@ class EsophagitisFeatureExtractor(torch.nn.Module):
         output = self.vision_model(transformed_output)
 
         if self.global_pool is not None:
-            output = self.global_pool(output[-1])  # Apply global pooling to the last feature map
+            output = self.global_pool(output[-1]).squeeze(dim=(-2, -1))  # Apply global pooling to the last feature map
 
         return output
 

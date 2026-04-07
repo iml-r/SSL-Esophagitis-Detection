@@ -12,6 +12,37 @@ This repository contains the code for esophagitis detection in upper gastrointes
 
 <br/>
 
+## Quick Start for Feature Extraction
+
+We provide a user-friendly Python API based on our DINOv3 pre-training for use in your computer vision pipeline. 
+
+The importable feature_extraction.py script offers an EsophagitisFeatureExtractor class that automatically downloads the required weights and extracts a feature vector for each input image. Optionally, it may also return several feature maps instead. 
+
+The class is a PyTorch module subclass, and therefore is suitable for downstream fine-tuning.
+
+### Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+### Example Usage
+
+```python
+import sys
+import torch
+
+sys.path.append("./SSL-Esophagitis-Detection/")
+from feature_extractor import EsophagitisFeatureExtractor
+
+pretrained_feat_extractor = EsophagitisFeatureExtractor(size="small")
+
+input_tensor = torch.randn(3, 3, 224, 224)
+pretrained_feats = pretrained_feat_extractor(input_tensor)
+
+print("Pretrained feats shape:", pretrained_feats.shape)
+print("Pretrained feats mean:", pretrained_feats.mean().item())
+```
 ## DINOv3 Self-Supervised Pre-Training
 
 ### Training
